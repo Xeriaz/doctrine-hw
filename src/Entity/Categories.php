@@ -25,7 +25,6 @@ class Categories
 
     /**
      * @ORM\ManyToOne(targetEntity="Products", inversedBy="categories")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;
 

@@ -24,12 +24,13 @@ class Products
     private $title;
 
     /**
-     * @ORM\Column(type="decimal", precision=7, scale=2)
+     * @ORM\Column(type="decimal", precision=8, scale=2)
      */
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity="Categories", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="Categories", mappedBy="product", cascade={"persist"})
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $categories;
 
@@ -60,6 +61,17 @@ class Products
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+    }
+
+    /**
+     * @param string $title
+     */
+    public function category(string $title) : void
+    {
+        $newCategory = new Categories();
+        $newCategory->setTitle($title);
+        $newCategory->setProduct($this->getId());
+        $this->categories->add($newCategory);
     }
 
     /**

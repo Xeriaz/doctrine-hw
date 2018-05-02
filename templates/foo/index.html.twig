@@ -3,7 +3,13 @@
 {% block title %}Hello {{ controller_name }}!{% endblock %}
 
 {% block body %}
-
-
-
+    <h1><a href="{{ path('cat_and_prod') }}">Create Category and Product</a></h1>
+    <ul>
+    {% for product in products %}
+        <li>
+            {{ product.id }}. {{ product.title }}
+            <a style="color:red" href="{{ path('remove_product', {'id': product.id}) }}">X</a>
+        </li>
+    {% endfor %}
+    </ul>
 {% endblock %}

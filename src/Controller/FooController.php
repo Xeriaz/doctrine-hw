@@ -15,25 +15,24 @@ class FooController extends Controller
      */
     public function index()
     {
+        $em = $this->getDoctrine()->getRepository(Products::class);
+        $products = $em->findAll();
+
         return $this->render('foo/index.html.twig', [
             'controller_name' => 'FooController',
+            'products' => $products,
         ]);
     }
 
     /**
-     * @Route("/category/{id}/product", name="cat_and_prod")
+     * @Route("/category/product", name="cat_and_prod")
      */
     public function productAndCategory (Request $request)
     {
-        $id = $request->attributes->get('id');
-        $em = $this->getDoctrine()->getRepository(Categories::class);
-
         $product = new Products();
         $product->setTitle('Book');
         $product->setPrice(13.99);
-        $product->setCategories(
-            array($em->find($id))
-        );
+        $product->category('Fantasy');
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($product);
@@ -54,6 +53,24 @@ class FooController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($category);
+        $em->flush();
+
+        return $this->redirectToRoute('home');
+    }
+
+
+    /**
+     * @param Request $request
+     * @Route("/remove/product/{id}", name="remove_product")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeProduct (Request $request)
+    {
+        $em = $this->getDoctrine()->getRepository(Products::class);
+        $challenge = $em->find($request->attributes->get('id'));
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($challenge);
         $em->flush();
 
         return $this->redirectToRoute('home');
