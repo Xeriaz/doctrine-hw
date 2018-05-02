@@ -29,7 +29,8 @@ class Products
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity="Categories", mappedBy="product")
+     * @ORM\ManyToMany(targetEntity="Categories", inversedBy="product")
+     * @ORM\JoinTable(name="products_categories")
      */
     private $categories;
 
@@ -52,23 +53,36 @@ class Products
     /**
      * @ORM\Column(type="boolean")
      */
-    private $active;
+    private $active = true;
 
+    /**
+     * Products constructor.
+     */
     public function __construct()
     {
         $this->categories = new ArrayCollection();
     }
 
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return null|string
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return Products
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -76,11 +90,18 @@ class Products
         return $this;
     }
 
+    /**
+     * @return null|float
+     */
     public function getPrice(): ?string
     {
         return $this->price;
     }
 
+    /**
+     * @param float $price
+     * @return Products
+     */
     public function setPrice(string $price): self
     {
         $this->price = $price;
@@ -88,11 +109,18 @@ class Products
         return $this;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getActive(): ?bool
     {
         return $this->active;
     }
 
+    /**
+     * @param bool $active
+     * @return Products
+     */
     public function setActive(bool $active): self
     {
         $this->active = $active;
@@ -100,6 +128,10 @@ class Products
         return $this;
     }
 
+    /**
+     * @param Categories $category
+     * @return Products
+     */
     public function addCategory(Categories $category): self
     {
         if (!$this->categories->contains($category)) {
@@ -110,6 +142,10 @@ class Products
         return $this;
     }
 
+    /**
+     * @param Categories $category
+     * @return Products
+     */
     public function removeCategory(Categories $category): self
     {
         if ($this->categories->contains($category)) {
