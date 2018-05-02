@@ -29,8 +29,7 @@ class Products
     private $price;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Categories", inversedBy="product")
-     * @ORM\JoinTable(name="products_categories")
+     * @ORM\OneToMany(targetEntity="Categories", mappedBy="product")
      */
     private $categories;
 

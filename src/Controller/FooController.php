@@ -15,17 +15,8 @@ class FooController extends Controller
      */
     public function index()
     {
-        $em = $this->getDoctrine()->getRepository(Categories::class);
-        $categories = $em->findAll();
-
-        $em = $this->getDoctrine()->getRepository(Products::class);
-        $prod = $em->findAll();
-
-
         return $this->render('foo/index.html.twig', [
             'controller_name' => 'FooController',
-            'categories' => $categories,
-            'products' => $prod,
         ]);
     }
 

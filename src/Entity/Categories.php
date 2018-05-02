@@ -24,18 +24,10 @@ class Categories
     private $title;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Products", mappedBy="categories")
+     * @ORM\ManyToOne(targetEntity="Products", inversedBy="categories")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;
-
-    /**
-     * Categories constructor.
-     * @param $product
-     */
-    public function __construct()
-    {
-        $this->product = new ArrayCollection();
-    }
 
     public function getId()
     {
