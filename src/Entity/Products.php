@@ -24,13 +24,12 @@ class Products
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="decimal", precision=7, scale=2)
      */
     private $price;
 
     /**
      * @ORM\OneToMany(targetEntity="Categories", mappedBy="product")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $categories;
 
