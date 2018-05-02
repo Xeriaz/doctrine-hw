@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Categories;
 use App\Entity\Products;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,12 +17,14 @@ class FooController extends Controller
      */
     public function index()
     {
-        $em = $this->getDoctrine()->getRepository(Products::class);
-        $products = $em->findAll();
+        $products = $this->findAllData(Products::class);
+        $categories = $this->findAllData(Categories::class);
+
 
         return $this->render('foo/index.html.twig', [
             'controller_name' => 'FooController',
             'products' => $products,
+            'categories' => $categories,
         ]);
     }
 
@@ -58,7 +62,6 @@ class FooController extends Controller
         return $this->redirectToRoute('home');
     }
 
-
     /**
      * @param Request $request
      * @Route("/remove/product/{id}", name="remove_product")
@@ -75,4 +78,15 @@ class FooController extends Controller
 
         return $this->redirectToRoute('home');
     }
+
+    /**
+     * @param string $class
+     * @return array
+     */
+    private function findAllData (string $class) : array
+    {
+        $em = $this->getDoctrine()->getRepository($class);
+        return $em->findAll();
+    }
+
 }

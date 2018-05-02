@@ -24,7 +24,7 @@ class Categories
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Products", inversedBy="categories")
+     * @ORM\OneToMany(targetEntity="Products", mappedBy="categories")
      */
     private $product;
 

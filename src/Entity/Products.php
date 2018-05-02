@@ -29,7 +29,7 @@ class Products
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity="Categories", mappedBy="product", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Categories", inversedBy="product", cascade={"persist"})
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $categories;
@@ -60,7 +60,7 @@ class Products
      */
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
+       // $this->categories = new ArrayCollection();
     }
 
     /**
@@ -70,8 +70,8 @@ class Products
     {
         $newCategory = new Categories();
         $newCategory->setTitle($title);
-        $newCategory->setProduct($this->getId());
-        $this->categories->add($newCategory);
+        dump($newCategory->getId());
+        $this->setCategories($newCategory);
     }
 
     /**
@@ -104,7 +104,7 @@ class Products
     /**
      * @return null|float
      */
-    public function getPrice(): ?string
+    public function getPrice(): ?float
     {
         return $this->price;
     }
@@ -113,7 +113,7 @@ class Products
      * @param float $price
      * @return Products
      */
-    public function setPrice(string $price): self
+    public function setPrice(float $price): self
     {
         $this->price = $price;
 
