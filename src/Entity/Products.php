@@ -70,7 +70,6 @@ class Products
     {
         $newCategory = new Categories();
         $newCategory->setTitle($title);
-        dump($newCategory->getId());
         $this->setCategories($newCategory);
     }
 
