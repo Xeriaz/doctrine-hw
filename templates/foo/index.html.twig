@@ -4,11 +4,23 @@
 
 {% block body %}
     <h1><a href="{{ path('cat_and_prod') }}">Create Category and Product</a></h1>
+
+    <h2>Products</h2>
     <ul>
     {% for product in products %}
         <li>
             {{ product.id }}. {{ product.title }}
+            <b>Category id:</b> {{ product.categories.id }}
             <a style="color:red" href="{{ path('remove_product', {'id': product.id}) }}">X</a>
+        </li>
+    {% endfor %}
+    </ul>
+
+    <h2>Categories:</h2>
+    <ul>
+    {% for cat in categories %}
+        <li>
+            {{ cat.id }}. {{ cat.title }}
         </li>
     {% endfor %}
     </ul>

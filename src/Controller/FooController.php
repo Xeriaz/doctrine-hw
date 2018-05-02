@@ -46,23 +46,6 @@ class FooController extends Controller
     }
 
     /**
-     * @Route("/category/{title}", name="create_category")
-     */
-    public function createCategory (Request $request)
-    {
-        $title = $request->attributes->get('title');
-
-        $category = new Categories();
-        $category->setTitle($title);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($category);
-        $em->flush();
-
-        return $this->redirectToRoute('home');
-    }
-
-    /**
      * @param Request $request
      * @Route("/remove/product/{id}", name="remove_product")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
