@@ -21,6 +21,12 @@ class Categories
      */
     private $title;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Products", inversedBy="categories")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     */
+    private $product;
+
     public function getId()
     {
         return $this->id;
@@ -34,6 +40,18 @@ class Categories
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Products
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Products $product): self
+    {
+        $this->product = $product;
 
         return $this;
     }
