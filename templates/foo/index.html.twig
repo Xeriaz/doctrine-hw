@@ -3,25 +3,51 @@
 {% block title %}Hello {{ controller_name }}!{% endblock %}
 
 {% block body %}
-    <h1><a href="{{ path('cat_and_prod') }}">Create Category and Product</a></h1>
+
 
     <h2>Products</h2>
-    <ul>
-    {% for product in products %}
-        <li>
-            {{ product.id }}. {{ product.title }}
-            <b>Category id:</b> {{ product.categories.id }}
-            <a style="color:red" href="{{ path('remove_product', {'id': product.id}) }}">X</a>
-        </li>
-    {% endfor %}
-    </ul>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Product Id</th>
+                <th scope="col">Title</th>
+                <th scope="col">Category id:</th>
+                <th scope="col">Remove:</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <th scope="row">{{ product.id }}</th>
+                <td>{{ product.title }}</td>
+                <td>{{ product.categories.id }}</td>
+                <td><a class="btn btn-danger" href="{{ path('remove_product', {'id': product.id}) }}">Remove</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-    <h2>Categories:</h2>
-    <ul>
-    {% for cat in categories %}
-        <li>
-            {{ cat.id }}. {{ cat.title }}
-        </li>
-    {% endfor %}
-    </ul>
+    <div class="row align-items-center">
+        <div class="col-md-offset-5 col-md-2">
+            <a class="btn btn-lg btn-primary" href="{{ path('cat_and_prod') }}">Create Category and Product</a>
+        </div>
+    </div>
+
+    <h2>Categories</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Category Id</th>
+            <th scope="col">Title</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cat in categories %}
+            <tr>
+                <th scope="row">{{ cat.id }}</th>
+                <td>{{ cat.title }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
