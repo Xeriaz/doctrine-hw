@@ -29,12 +29,8 @@ class Products
     private $price;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $category_id;
-
-    /**
      * @ORM\OneToMany(targetEntity="Categories", mappedBy="product")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $categories;
 
@@ -89,18 +85,6 @@ class Products
     public function setPrice(string $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getCategoryId(): ?int
-    {
-        return $this->category_id;
-    }
-
-    public function setCategoryId(int $category_id): self
-    {
-        $this->category_id = $category_id;
 
         return $this;
     }
