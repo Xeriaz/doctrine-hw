@@ -52,10 +52,9 @@ class FooController extends Controller
      */
     public function removeProduct (Request $request)
     {
-        $em = $this->getDoctrine()->getRepository(Products::class);
-        $challenge = $em->find($request->attributes->get('id'));
-
         $em = $this->getDoctrine()->getManager();
+        $challenge = $em->find('App:Products', $request->attributes->get('id'));
+
         $em->remove($challenge);
         $em->flush();
 
